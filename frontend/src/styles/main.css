@@ -1,0 +1,15 @@
+@import 'tailwindcss';
+
+/* 与 src/config/theme.ts 中 THEME_* / THEME_RADIUS_LG 保持一致 */
+@theme {
+  --color-primary: #134e8e;
+  --color-primary-hover: #1860a8;
+  --color-primary-active: #0f3f6f;
+  --radius-lg: 0.5rem;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
