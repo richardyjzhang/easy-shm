@@ -2,3 +2,18 @@
 CREATE DATABASE IF NOT EXISTS `easy_shm`
     DEFAULT CHARACTER SET utf8mb4
     DEFAULT COLLATE utf8mb4_general_ci;
+
+USE `easy_shm`;
+
+-- 组织机构
+CREATE TABLE `department` (
+  `id`          BIGINT       NOT NULL AUTO_INCREMENT,
+  `name`        VARCHAR(100) NOT NULL COMMENT '机构名称',
+  `contact`     VARCHAR(50)  DEFAULT NULL COMMENT '联系人',
+  `phone`       VARCHAR(20)  DEFAULT NULL COMMENT '联系电话',
+  `address`     VARCHAR(255) DEFAULT NULL COMMENT '地址',
+  `description` VARCHAR(500) DEFAULT NULL COMMENT '备注',
+  `created_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`  DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构';

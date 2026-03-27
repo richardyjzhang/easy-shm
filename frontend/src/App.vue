@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NConfigProvider } from 'naive-ui'
+import { NConfigProvider, NMessageProvider } from 'naive-ui'
 import { dateZhCN, zhCN } from 'naive-ui'
 
 import { naiveThemeOverrides } from '@/config/theme'
@@ -7,6 +7,8 @@ import { naiveThemeOverrides } from '@/config/theme'
 
 <template>
   <n-config-provider :locale="zhCN" :date-locale="dateZhCN" :theme-overrides="naiveThemeOverrides">
-    <router-view />
+    <n-message-provider>
+      <router-view />
+    </n-message-provider>
   </n-config-provider>
 </template>

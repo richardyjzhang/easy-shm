@@ -100,9 +100,9 @@ export const menuTree: MenuGroupConfig[] = [
     groupIcon: SettingsOutline,
     items: [
       {
-        path: 'system/organizations',
+        path: 'system/departments',
         title: '机构管理',
-        name: 'system-organizations',
+        name: 'system-departments',
         icon: BusinessOutline,
       },
       { path: 'system/users', title: '用户管理', name: 'system-users', icon: PeopleOutline },

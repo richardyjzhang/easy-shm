@@ -1,10 +1,17 @@
 import type { RouteRecordRaw } from 'vue-router'
+import type { Component } from 'vue'
 
 import { appDefaultRedirectPath, menuTree } from '@/config/menu'
 import LoginLayout from '@/layouts/LoginLayout.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import LoginView from '@/views/login/LoginView.vue'
 import PlaceholderView from '@/views/common/PlaceholderView.vue'
+import DepartmentView from '@/views/system/DepartmentView.vue'
+
+/** 已实现的业务页面：路由 name → 组件 */
+const viewMap: Record<string, Component> = {
+  'system-departments': DepartmentView,
+}
 
 /** 由 `config/menu.ts` 的 menuTree 生成主布局子路由，避免与菜单配置重复维护 */
 function buildMainLayoutChildren(): RouteRecordRaw[] {
@@ -12,7 +19,7 @@ function buildMainLayoutChildren(): RouteRecordRaw[] {
     g.items.map((it) => ({
       path: it.path,
       name: it.name,
-      component: PlaceholderView,
+      component: viewMap[it.name] ?? PlaceholderView,
       meta: { title: it.title },
     })),
   )
