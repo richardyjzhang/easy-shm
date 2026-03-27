@@ -3,11 +3,15 @@ import { NButton, NForm, NFormItem, NInput } from 'naive-ui'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { hashPassword } from '@/utils/crypto'
+
 const router = useRouter()
 const username = ref('')
 const password = ref('')
 
-function handleLogin() {
+async function handleLogin() {
+  // 与后端约定：登录请求体应传 SHA-256(loginName + easy_shm + 明文) 的 hex，此处先预哈希供后续接入登录接口使用
+  await hashPassword(username.value.trim(), password.value)
   router.push('/dashboard/workspace')
 }
 </script>

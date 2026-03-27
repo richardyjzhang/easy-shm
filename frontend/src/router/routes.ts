@@ -7,10 +7,12 @@ import MainLayout from '@/layouts/MainLayout.vue'
 import LoginView from '@/views/login/LoginView.vue'
 import PlaceholderView from '@/views/common/PlaceholderView.vue'
 import DepartmentView from '@/views/system/DepartmentView.vue'
+import UserView from '@/views/system/UserView.vue'
 
 /** 已实现的业务页面：路由 name → 组件 */
 const viewMap: Record<string, Component> = {
   'system-departments': DepartmentView,
+  'system-users': UserView,
 }
 
 /** 由 `config/menu.ts` 的 menuTree 生成主布局子路由，避免与菜单配置重复维护 */
