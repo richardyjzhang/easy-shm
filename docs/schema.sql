@@ -18,7 +18,7 @@ CREATE TABLE `department` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='组织机构';
 
--- 系统用户（不设外键，由应用层保证 department_id 有效）
+-- 系统用户
 CREATE TABLE `sys_user` (
   `id`             BIGINT       NOT NULL AUTO_INCREMENT,
   `login_name`     VARCHAR(64)  NOT NULL COMMENT '登录名',
@@ -33,3 +33,17 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_login_name` (`login_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统用户';
+
+-- 监测结构
+CREATE TABLE `structure` (
+  `id`             BIGINT        NOT NULL AUTO_INCREMENT,
+  `name`           VARCHAR(100)  NOT NULL COMMENT '结构名称',
+  `type`           VARCHAR(32)   NOT NULL COMMENT '类型: 民建、工建、桥梁、隧道、边坡、其他',
+  `department_id`  BIGINT        NOT NULL COMMENT '所属机构',
+  `longitude`      DOUBLE        DEFAULT NULL COMMENT '经度',
+  `latitude`       DOUBLE        DEFAULT NULL COMMENT '纬度',
+  `remark`         VARCHAR(500)  DEFAULT NULL COMMENT '备注',
+  `created_at`     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测结构';

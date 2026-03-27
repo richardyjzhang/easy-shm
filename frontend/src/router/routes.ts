@@ -6,11 +6,13 @@ import LoginLayout from '@/layouts/LoginLayout.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import LoginView from '@/views/login/LoginView.vue'
 import PlaceholderView from '@/views/common/PlaceholderView.vue'
+import StructureView from '@/views/basic/StructureView.vue'
 import DepartmentView from '@/views/system/DepartmentView.vue'
 import UserView from '@/views/system/UserView.vue'
 
 /** 已实现的业务页面：路由 name → 组件 */
 const viewMap: Record<string, Component> = {
+  'basic-structures': StructureView,
   'system-departments': DepartmentView,
   'system-users': UserView,
 }
