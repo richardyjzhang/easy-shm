@@ -70,3 +70,20 @@ CREATE TABLE `monitor_value_type` (
   `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测内容';
+
+-- 设备信息（型号规格管理）
+CREATE TABLE `device_model` (
+  `id`             BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `department_id`  BIGINT       NOT NULL COMMENT '所属机构',
+  `manufacturer`   VARCHAR(100) NOT NULL COMMENT '设备厂商',
+  `device_type`    VARCHAR(50)  NOT NULL COMMENT '设备类型：传感器、采集仪、数据传输设备等',
+  `model`          VARCHAR(100) NOT NULL COMMENT '设备型号',
+  `range`          VARCHAR(100) DEFAULT NULL COMMENT '量程',
+  `principle_type` VARCHAR(50)  DEFAULT NULL COMMENT '原理类型：振弦式、压阻式、光纤式、电容式等',
+  `sensitivity`    VARCHAR(50)  DEFAULT NULL COMMENT '灵敏度',
+  `accuracy`       VARCHAR(50)  DEFAULT NULL COMMENT '精度',
+  `remark`         VARCHAR(500) DEFAULT NULL COMMENT '备注',
+  `created_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='设备型号规格';

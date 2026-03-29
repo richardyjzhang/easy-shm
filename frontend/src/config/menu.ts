@@ -12,6 +12,7 @@ import {
   ListOutline,
   OptionsOutline,
   PeopleOutline,
+  PhoneLandscapeOutline,
   PulseOutline,
   SearchOutline,
   SettingsOutline,
@@ -80,6 +81,12 @@ export const menuTree: MenuGroupConfig[] = [
         icon: WarningOutline,
       },
       { path: 'monitoring/items', title: '监测项管理', name: 'monitoring-items', icon: ListOutline },
+      {
+        path: 'monitoring/device-models',
+        title: '设备信息管理',
+        name: 'monitoring-device-models',
+        icon: PhoneLandscapeOutline,
+      },
       {
         path: 'monitoring/devices',
         title: '监测设备管理',
