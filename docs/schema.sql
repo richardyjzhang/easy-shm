@@ -47,3 +47,26 @@ CREATE TABLE `structure` (
   `updated_at`     DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测结构';
+
+-- 监测项
+CREATE TABLE `monitor_index` (
+  `id`             BIGINT       NOT NULL AUTO_INCREMENT,
+  `department_id`  BIGINT       NOT NULL COMMENT '所属机构',
+  `type`           TINYINT      NOT NULL COMMENT '类型: 1环境, 2作用, 3结构响应, 4结构变化',
+  `name`           VARCHAR(100) NOT NULL COMMENT '名称',
+  `code`           VARCHAR(50)  DEFAULT NULL COMMENT '编码',
+  `created_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测项';
+
+-- 监测内容
+CREATE TABLE `monitor_value_type` (
+  `id`               BIGINT       NOT NULL AUTO_INCREMENT,
+  `monitor_index_id` BIGINT       NOT NULL COMMENT '所属监测项',
+  `name`             VARCHAR(100) NOT NULL COMMENT '名称',
+  `unit`             VARCHAR(50)  DEFAULT NULL COMMENT '单位',
+  `created_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测内容';
