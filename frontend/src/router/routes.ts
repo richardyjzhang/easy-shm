@@ -12,6 +12,7 @@ import UserView from '@/views/system/UserView.vue'
 import MonitorIndexView from '@/views/monitoring/MonitorIndexView.vue'
 import DeviceModelView from '@/views/monitoring/DeviceModelView.vue'
 import MonitorDeviceView from '@/views/monitoring/MonitorDeviceView.vue'
+import StructureMonitoringConfigView from '@/views/monitoring/StructureMonitoringConfigView.vue'
 
 /** 已实现的业务页面：路由 name → 组件 */
 const viewMap: Record<string, Component> = {
@@ -21,6 +22,7 @@ const viewMap: Record<string, Component> = {
   'monitoring-items': MonitorIndexView,
   'monitoring-device-models': DeviceModelView,
   'monitoring-devices': MonitorDeviceView,
+  'monitoring-structure-config': StructureMonitoringConfigView,
 }
 
 /** 由 `config/menu.ts` 的 menuTree 生成主布局子路由，避免与菜单配置重复维护 */

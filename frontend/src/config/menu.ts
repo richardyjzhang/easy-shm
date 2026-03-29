@@ -94,9 +94,9 @@ export const menuTree: MenuGroupConfig[] = [
         icon: HardwareChipOutline,
       },
       {
-        path: 'monitoring/thresholds',
-        title: '报警阈值管理',
-        name: 'monitoring-thresholds',
+        path: 'monitoring/structure-config',
+        title: '结构监测配置',
+        name: 'monitoring-structure-config',
         icon: OptionsOutline,
       },
     ],
