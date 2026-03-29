@@ -87,3 +87,16 @@ CREATE TABLE `device_model` (
   `updated_at`     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='设备型号规格';
+
+-- 监测设备（设备实例管理）
+CREATE TABLE `monitor_device` (
+  `id`              BIGINT       NOT NULL AUTO_INCREMENT COMMENT '主键ID',
+  `department_id`   BIGINT       NOT NULL COMMENT '所属机构',
+  `device_model_id` BIGINT       NOT NULL COMMENT '设备型号',
+  `sn`              VARCHAR(100) NOT NULL COMMENT '序列号',
+  `production_date` DATE         DEFAULT NULL COMMENT '出厂日期',
+  `remark`          VARCHAR(500) DEFAULT NULL COMMENT '备注',
+  `created_at`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测设备';
