@@ -1,11 +1,13 @@
 package com.easyshm.service;
 
 import com.easyshm.entity.MonitorValueType;
-import org.springframework.data.domain.Page;
+import com.easyshm.repository.projection.MonitorValueTypeWithIndexView;
+
+import java.util.List;
 
 public interface MonitorValueTypeService {
 
-    Page<MonitorValueType> listByMonitorIndexId(Long monitorIndexId, int page, int size);
+    List<MonitorValueTypeWithIndexView> listWithMonitorIndex(Long monitorIndexId);
 
     MonitorValueType getById(Long id);
 

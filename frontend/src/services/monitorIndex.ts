@@ -9,7 +9,31 @@ export function listMonitorIndexes(params: {
   page?: number
   size?: number
 }) {
-  return request.get<unknown, ApiResponse<PageResult<MonitorIndex>>>('/monitor-indexes', { params })
+  return request
+    .get<unknown, ApiResponse<MonitorIndex[]>>('/monitor-indexes', {
+      params: {
+        name: params.name,
+        departmentId: params.departmentId,
+        type: params.type,
+      },
+    })
+    .then((res) => {
+      const page = params.page ?? 1
+      const size = params.size ?? 10
+      const start = (page - 1) * size
+      const end = start + size
+      const full = res.data
+      return {
+        ...res,
+        data: {
+          content: full.slice(start, end),
+          totalElements: full.length,
+          totalPages: Math.ceil(full.length / size),
+          number: page - 1,
+          size,
+        },
+      } as ApiResponse<PageResult<MonitorIndex>>
+    })
 }
 
 export function getMonitorIndex(id: number) {
@@ -34,7 +58,27 @@ export function listMonitorValueTypes(params: {
   page?: number
   size?: number
 }) {
-  return request.get<unknown, ApiResponse<PageResult<MonitorValueType>>>('/monitor-value-types', { params })
+  return request
+    .get<unknown, ApiResponse<MonitorValueType[]>>('/monitor-value-types', {
+      params: { monitorIndexId: params.monitorIndexId },
+    })
+    .then((res) => {
+      const page = params.page ?? 1
+      const size = params.size ?? 10
+      const start = (page - 1) * size
+      const end = start + size
+      const full = res.data
+      return {
+        ...res,
+        data: {
+          content: full.slice(start, end),
+          totalElements: full.length,
+          totalPages: Math.ceil(full.length / size),
+          number: page - 1,
+          size,
+        },
+      } as ApiResponse<PageResult<MonitorValueType>>
+    })
 }
 
 export function getMonitorValueType(id: number) {

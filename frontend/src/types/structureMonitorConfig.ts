@@ -12,4 +12,11 @@ export interface MonitorIndexWithValueTypes extends MonitorIndex {
   valueTypes: MonitorValueType[]
 }
 
+export interface MonitorValueTypeWithIndex extends MonitorValueType {
+  monitorIndexName?: string
+  monitorIndexType?: number
+  monitorIndexCode?: string
+  monitorIndexDepartmentId?: number
+}
+
 export type { ApiResponse, PageResult }

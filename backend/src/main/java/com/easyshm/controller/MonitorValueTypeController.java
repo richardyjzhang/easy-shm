@@ -2,10 +2,12 @@ package com.easyshm.controller;
 
 import com.easyshm.dto.ApiResponse;
 import com.easyshm.entity.MonitorValueType;
+import com.easyshm.repository.projection.MonitorValueTypeWithIndexView;
 import com.easyshm.service.MonitorValueTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/monitor-value-types")
@@ -15,14 +17,9 @@ public class MonitorValueTypeController {
     private MonitorValueTypeService monitorValueTypeService;
 
     @GetMapping
-    public ApiResponse<Page<MonitorValueType>> list(
-            @RequestParam(required = false) Long monitorIndexId,
-            @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        if (monitorIndexId == null) {
-            throw new RuntimeException("缺少 monitorIndexId 参数");
-        }
-        return ApiResponse.ok(monitorValueTypeService.listByMonitorIndexId(monitorIndexId, page, size));
+    public ApiResponse<List<MonitorValueTypeWithIndexView>> list(
+            @RequestParam(required = false) Long monitorIndexId) {
+        return ApiResponse.ok(monitorValueTypeService.listWithMonitorIndex(monitorIndexId));
     }
 
     @GetMapping("/{id}")

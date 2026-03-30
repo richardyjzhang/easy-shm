@@ -3,14 +3,13 @@ package com.easyshm.service.impl;
 import com.easyshm.entity.MonitorValueType;
 import com.easyshm.repository.MonitorIndexRepository;
 import com.easyshm.repository.MonitorValueTypeRepository;
+import com.easyshm.repository.projection.MonitorValueTypeWithIndexView;
 import com.easyshm.service.MonitorValueTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Service
 public class MonitorValueTypeServiceImpl implements MonitorValueTypeService {
@@ -22,9 +21,8 @@ public class MonitorValueTypeServiceImpl implements MonitorValueTypeService {
     private MonitorIndexRepository monitorIndexRepository;
 
     @Override
-    public Page<MonitorValueType> listByMonitorIndexId(Long monitorIndexId, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        return monitorValueTypeRepository.findByMonitorIndexId(monitorIndexId, pageable);
+    public List<MonitorValueTypeWithIndexView> listWithMonitorIndex(Long monitorIndexId) {
+        return monitorValueTypeRepository.findAllWithMonitorIndex(monitorIndexId);
     }
 
     @Override

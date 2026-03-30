@@ -1,23 +1,17 @@
 package com.easyshm.service.impl;
 
-import com.easyshm.dto.MonitorIndexWithValueTypesDTO;
 import com.easyshm.entity.MonitorIndex;
-import com.easyshm.entity.MonitorValueType;
 import com.easyshm.repository.DepartmentRepository;
 import com.easyshm.repository.MonitorIndexRepository;
 import com.easyshm.repository.MonitorValueTypeRepository;
 import com.easyshm.service.MonitorIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class MonitorIndexServiceImpl implements MonitorIndexService {
@@ -34,34 +28,34 @@ public class MonitorIndexServiceImpl implements MonitorIndexService {
     private DepartmentRepository departmentRepository;
 
     @Override
-    public Page<MonitorIndex> list(String name, Long departmentId, Integer type, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+    public List<MonitorIndex> list(String name, Long departmentId, Integer type) {
+        Pageable pageable = Pageable.unpaged();
         boolean hasName = StringUtils.hasText(name);
         boolean hasDept = departmentId != null;
         boolean hasType = type != null;
 
         if (hasName && hasDept && hasType) {
-            return monitorIndexRepository.findByNameContainingAndDepartmentIdAndType(name.trim(), departmentId, type, pageable);
+            return monitorIndexRepository.findByNameContainingAndDepartmentIdAndType(name.trim(), departmentId, type, pageable).getContent();
         }
         if (hasName && hasDept) {
-            return monitorIndexRepository.findByNameContainingAndDepartmentId(name.trim(), departmentId, pageable);
+            return monitorIndexRepository.findByNameContainingAndDepartmentId(name.trim(), departmentId, pageable).getContent();
         }
         if (hasName && hasType) {
-            return monitorIndexRepository.findByNameContainingAndType(name.trim(), type, pageable);
+            return monitorIndexRepository.findByNameContainingAndType(name.trim(), type, pageable).getContent();
         }
         if (hasDept && hasType) {
-            return monitorIndexRepository.findByDepartmentIdAndType(departmentId, type, pageable);
+            return monitorIndexRepository.findByDepartmentIdAndType(departmentId, type, pageable).getContent();
         }
         if (hasName) {
-            return monitorIndexRepository.findByNameContaining(name.trim(), pageable);
+            return monitorIndexRepository.findByNameContaining(name.trim(), pageable).getContent();
         }
         if (hasDept) {
-            return monitorIndexRepository.findByDepartmentId(departmentId, pageable);
+            return monitorIndexRepository.findByDepartmentId(departmentId, pageable).getContent();
         }
         if (hasType) {
-            return monitorIndexRepository.findByType(type, pageable);
+            return monitorIndexRepository.findByType(type, pageable).getContent();
         }
-        return monitorIndexRepository.findAll(pageable);
+        return monitorIndexRepository.findAll(pageable).getContent();
     }
 
     @Override
@@ -96,20 +90,6 @@ public class MonitorIndexServiceImpl implements MonitorIndexService {
         // 级联删除其下所有监测内容
         monitorValueTypeRepository.deleteByMonitorIndexId(id);
         monitorIndexRepository.deleteById(id);
-    }
-
-    @Override
-    public List<MonitorIndexWithValueTypesDTO> listAllWithValueTypes(Long departmentId) {
-        List<MonitorIndex> indexes;
-        if (departmentId != null) {
-            indexes = monitorIndexRepository.findByDepartmentId(departmentId, Pageable.unpaged()).getContent();
-        } else {
-            indexes = monitorIndexRepository.findAll();
-        }
-        return indexes.stream().map(index -> {
-            List<MonitorValueType> valueTypes = monitorValueTypeRepository.findByMonitorIndexId(index.getId());
-            return MonitorIndexWithValueTypesDTO.from(index, valueTypes);
-        }).collect(Collectors.toList());
     }
 
     private void validate(MonitorIndex m) {
