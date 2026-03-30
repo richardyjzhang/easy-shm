@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { OptionsOutline } from '@vicons/ionicons5'
+import { CreateOutline, OptionsOutline } from '@vicons/ionicons5'
 import {
   NButton,
   NCard,
@@ -11,6 +11,7 @@ import {
   NInputNumber,
   NModal,
   NSelect,
+  NSpace,
   NSpin,
   NSwitch,
   NTag,
@@ -174,16 +175,16 @@ const tableColumns = computed<DataTableColumns<PointRow>>(() => [
     width: 80,
     fixed: 'right',
     render: (row) =>
-      h(
-        NButton,
-        {
-          size: 'small',
-          quaternary: true,
-          type: 'primary',
-          onClick: () => openEditDialog(row),
-        },
-        { default: () => '配置' },
-      ),
+      h(NSpace, { size: 4 }, () => [
+        h(
+          NButton,
+          { text: true, type: 'primary', size: 'small', onClick: () => openEditDialog(row) },
+          {
+            default: () => '配置',
+            icon: () => h(NIcon, { component: CreateOutline, size: 16 }),
+          },
+        ),
+      ]),
   },
 ])
 

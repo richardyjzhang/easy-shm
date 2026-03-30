@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AddOutline, LocationOutline, PencilOutline, TrashOutline } from '@vicons/ionicons5'
+import { AddOutline, CreateOutline, LocationOutline, TrashOutline } from '@vicons/ionicons5'
 import {
   NButton,
   NCard,
@@ -12,6 +12,7 @@ import {
   NModal,
   NPopconfirm,
   NSelect,
+  NSpace,
   NSpin,
   useMessage,
 } from 'naive-ui'
@@ -178,16 +179,14 @@ const tableColumns = computed<DataTableColumns<MonitorPoint>>(() => [
     width: 140,
     fixed: 'right',
     render: (row) =>
-      h('div', { class: 'flex items-center gap-1' }, [
+      h(NSpace, { size: 4 }, () => [
         h(
           NButton,
+          { text: true, type: 'primary', size: 'small', onClick: () => openEditDialog(row) },
           {
-            size: 'small',
-            quaternary: true,
-            type: 'primary',
-            onClick: () => openEditDialog(row),
+            default: () => '编辑',
+            icon: () => h(NIcon, { component: CreateOutline, size: 16 }),
           },
-          { icon: () => h(NIcon, { component: PencilOutline }), default: () => '编辑' },
         ),
         h(
           NPopconfirm,
@@ -196,8 +195,11 @@ const tableColumns = computed<DataTableColumns<MonitorPoint>>(() => [
             trigger: () =>
               h(
                 NButton,
-                { size: 'small', quaternary: true, type: 'error' },
-                { icon: () => h(NIcon, { component: TrashOutline }), default: () => '删除' },
+                { text: true, type: 'error', size: 'small' },
+                {
+                  default: () => '删除',
+                  icon: () => h(NIcon, { component: TrashOutline, size: 16 }),
+                },
               ),
             default: () => '确定删除该测点？',
           },
