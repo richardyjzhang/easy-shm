@@ -1,11 +1,14 @@
 package com.easyshm.controller;
 
 import com.easyshm.dto.ApiResponse;
+import com.easyshm.dto.MonitorIndexWithValueTypesDTO;
 import com.easyshm.entity.MonitorIndex;
 import com.easyshm.service.MonitorIndexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/monitor-indexes")
@@ -27,6 +30,12 @@ public class MonitorIndexController {
     @GetMapping("/{id}")
     public ApiResponse<MonitorIndex> getById(@PathVariable Long id) {
         return ApiResponse.ok(monitorIndexService.getById(id));
+    }
+
+    @GetMapping("/with-value-types")
+    public ApiResponse<List<MonitorIndexWithValueTypesDTO>> listAllWithValueTypes(
+            @RequestParam(required = false) Long departmentId) {
+        return ApiResponse.ok(monitorIndexService.listAllWithValueTypes(departmentId));
     }
 
     @PostMapping

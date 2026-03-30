@@ -1,6 +1,8 @@
 package com.easyshm.service.impl;
 
+import com.easyshm.dto.MonitorIndexWithValueTypesDTO;
 import com.easyshm.entity.MonitorIndex;
+import com.easyshm.entity.MonitorValueType;
 import com.easyshm.repository.DepartmentRepository;
 import com.easyshm.repository.MonitorIndexRepository;
 import com.easyshm.repository.MonitorValueTypeRepository;
@@ -13,7 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class MonitorIndexServiceImpl implements MonitorIndexService {
@@ -92,6 +96,20 @@ public class MonitorIndexServiceImpl implements MonitorIndexService {
         // 级联删除其下所有监测内容
         monitorValueTypeRepository.deleteByMonitorIndexId(id);
         monitorIndexRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MonitorIndexWithValueTypesDTO> listAllWithValueTypes(Long departmentId) {
+        List<MonitorIndex> indexes;
+        if (departmentId != null) {
+            indexes = monitorIndexRepository.findByDepartmentId(departmentId, Pageable.unpaged()).getContent();
+        } else {
+            indexes = monitorIndexRepository.findAll();
+        }
+        return indexes.stream().map(index -> {
+            List<MonitorValueType> valueTypes = monitorValueTypeRepository.findByMonitorIndexId(index.getId());
+            return MonitorIndexWithValueTypesDTO.from(index, valueTypes);
+        }).collect(Collectors.toList());
     }
 
     private void validate(MonitorIndex m) {

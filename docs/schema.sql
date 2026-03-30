@@ -100,3 +100,14 @@ CREATE TABLE `monitor_device` (
   `updated_at`      DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测设备';
+
+-- 结构物监测配置（关联结构物与监测内容）
+CREATE TABLE `structure_monitor_config` (
+  `id`              BIGINT NOT NULL AUTO_INCREMENT,
+  `structure_id`    BIGINT NOT NULL COMMENT '结构物ID',
+  `value_type_id`   BIGINT NOT NULL COMMENT '监测内容ID',
+  `created_at`      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_structure_value_type` (`structure_id`, `value_type_id`),
+  KEY `idx_structure_id` (`structure_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='结构物监测配置';
