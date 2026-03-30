@@ -125,3 +125,20 @@ CREATE TABLE `monitor_point` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_structure_code` (`structure_id`, `code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测点位';
+
+-- 测点阈值配置
+CREATE TABLE `monitor_point_threshold` (
+  `id`               BIGINT   NOT NULL AUTO_INCREMENT,
+  `point_id`         BIGINT   NOT NULL COMMENT '测点ID',
+  `enabled`          TINYINT  NOT NULL DEFAULT 1 COMMENT '是否启用: 1启用 0停用',
+  `blue_lower`       DOUBLE   DEFAULT NULL COMMENT '蓝色下限',
+  `blue_upper`       DOUBLE   DEFAULT NULL COMMENT '蓝色上限',
+  `yellow_lower`     DOUBLE   DEFAULT NULL COMMENT '黄色下限',
+  `yellow_upper`     DOUBLE   DEFAULT NULL COMMENT '黄色上限',
+  `red_lower`        DOUBLE   DEFAULT NULL COMMENT '红色下限',
+  `red_upper`        DOUBLE   DEFAULT NULL COMMENT '红色上限',
+  `created_at`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_point_id` (`point_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='测点阈值配置';
