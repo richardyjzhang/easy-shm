@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { LocationOutline, OptionsOutline } from '@vicons/ionicons5'
+import { ListOutline, LocationOutline, OptionsOutline } from '@vicons/ionicons5'
 import { NIcon, NTabPane, NTabs } from 'naive-ui'
 import { h, ref } from 'vue'
 
+import MonitorItemConfig from './components/MonitorItemConfig.vue'
 import PointManagement from './components/PointManagement.vue'
 import ThresholdManagement from './components/ThresholdManagement.vue'
 
-const activeTab = ref('points')
+const activeTab = ref('items')
 
 function renderTabLabel(label: string, icon: typeof LocationOutline) {
   return () => h('div', { class: 'flex items-center gap-1' }, [
@@ -19,10 +20,13 @@ function renderTabLabel(label: string, icon: typeof LocationOutline) {
 <template>
   <div class="flex flex-col h-full">
     <n-tabs v-model:value="activeTab" type="line" class="flex-1" pane-class="h-full">
-      <n-tab-pane name="points" :tab="renderTabLabel('测点管理', LocationOutline)">
+      <n-tab-pane name="items" :tab="renderTabLabel('监测项配置', ListOutline)">
+        <MonitorItemConfig />
+      </n-tab-pane>
+      <n-tab-pane name="points" :tab="renderTabLabel('测点配置', LocationOutline)">
         <PointManagement />
       </n-tab-pane>
-      <n-tab-pane name="thresholds" :tab="renderTabLabel('阈值管理', OptionsOutline)">
+      <n-tab-pane name="thresholds" :tab="renderTabLabel('阈值配置', OptionsOutline)">
         <ThresholdManagement />
       </n-tab-pane>
     </n-tabs>
