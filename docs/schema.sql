@@ -108,6 +108,20 @@ CREATE TABLE `structure_monitor_config` (
   `value_type_id`   BIGINT NOT NULL COMMENT '监测内容ID',
   `created_at`      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_structure_value_type` (`structure_id`, `value_type_id`),
-  KEY `idx_structure_id` (`structure_id`)
+  UNIQUE KEY `uk_structure_value_type` (`structure_id`, `value_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='结构物监测配置';
+
+-- 监测点位
+CREATE TABLE `monitor_point` (
+  `id`               BIGINT       NOT NULL AUTO_INCREMENT,
+  `structure_id`     BIGINT       NOT NULL COMMENT '所属结构物ID',
+  `value_type_id`    BIGINT       NOT NULL COMMENT '监测内容ID',
+  `code`             VARCHAR(50)  NOT NULL COMMENT '测点编号',
+  `location`         VARCHAR(255) DEFAULT NULL COMMENT '测点位置描述',
+  `device_id`        BIGINT       NOT NULL COMMENT '选用设备ID（monitor_device）',
+  `channel`          VARCHAR(50)  DEFAULT NULL COMMENT '通道编号',
+  `created_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at`       DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_structure_code` (`structure_id`, `code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='监测点位';
