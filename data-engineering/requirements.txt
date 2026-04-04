@@ -1,0 +1,4 @@
+paho-mqtt>=2.0
+python-dotenv>=1.0
+requests>=2.31
+taospy>=2.7
