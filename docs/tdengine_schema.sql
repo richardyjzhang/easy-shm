@@ -52,28 +52,7 @@ CREATE STABLE stats_data (
 );
 
 -- 子表命名规则: stats_data_{point_id}_{period}
+-- period: 1s、1min、10min、1h
 -- 示例:
 -- CREATE TABLE stats_data_1001_1h USING stats_data TAGS (1001, '1h');
 
-
-
--- ============================================================
--- 流计算（可选）— 自动从原始数据生成小时统计
--- 需要 TDengine 3.x+
--- ============================================================
-
--- CREATE STREAM stats_hourly_stream
---   TRIGGER AT_ONCE
---   INTO ts_stats.stats_hourly AS
--- SELECT
---   _wstart AS ts,
---   '1h' AS period,
---   AVG(val) AS avg_val,
---   MAX(val) AS max_val,
---   MIN(val) AS min_val,
---   STDDEV(val) AS std_val,
---   COUNT(*) AS count_val,
---   tbname
--- FROM ts_raw.origin_data
--- WHERE quality = 0
--- INTERVAL(1h);
