@@ -10,6 +10,7 @@ import random
 import ssl
 import threading
 import time
+from datetime import datetime
 
 import paho.mqtt.client as mqtt
 import requests
@@ -77,7 +78,7 @@ def main():
                 temp = base_temp
                 humi = base_humi
 
-            now = int(time.time() * 1000)
+            now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
             payload = [
                 {"ts": now, "point_id": pid, "val": round(base + random.uniform(-DRIFT, DRIFT), 2)}
                 for pid, base in [(1, temp), (2, humi)]

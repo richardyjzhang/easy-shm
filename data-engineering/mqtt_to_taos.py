@@ -64,7 +64,7 @@ def on_message(client, userdata, msg):
         ensure_table(r["point_id"])
         sql = (
             f"INSERT INTO {TAOS_DB}.origin_data_{r['point_id']} "
-            f"VALUES ({r['ts']}, {r['val']})"
+            f"VALUES ('{r['ts']}', {r['val']})"
         )
         exec_sql(sql)
 
