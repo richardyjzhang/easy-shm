@@ -13,12 +13,14 @@ import MonitorIndexView from '@/views/monitoring/MonitorIndexView.vue'
 import DeviceModelView from '@/views/monitoring/DeviceModelView.vue'
 import MonitorDeviceView from '@/views/monitoring/MonitorDeviceView.vue'
 import StructureMonitoringConfigView from '@/views/monitoring/StructureMonitoringConfigView.vue'
+import MonitorDataView from '@/views/monitoring/MonitorDataView.vue'
 
 /** 已实现的业务页面：路由 name → 组件 */
 const viewMap: Record<string, Component> = {
   'basic-structures': StructureView,
   'system-departments': DepartmentView,
   'system-users': UserView,
+  'monitoring-data': MonitorDataView,
   'monitoring-items': MonitorIndexView,
   'monitoring-device-models': DeviceModelView,
   'monitoring-devices': MonitorDeviceView,
