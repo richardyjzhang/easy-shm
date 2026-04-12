@@ -1,19 +1,19 @@
-"""模拟边缘侧设备，每秒向 MQTT 上报一条监测数据。
+"""模拟边缘侧设备，为每个测点以 1 Hz 向 MQTT 上报监测数据。
 
-每分钟从 Open-Meteo 获取华盛顿 DC 的实时温湿度作为基准，
-每秒在基准值上叠加 ±1℃ / ±1% 的随机浮动后发布。
+读取 sensor_config.json（由 export_points.py 从 MySQL 导出），
+根据传感器类型生成物理上合理的模拟值，每个结构物发往独立 topic。
 """
 
 import json
+import math
 import os
 import random
 import ssl
-import threading
 import time
 from datetime import datetime
+from pathlib import Path
 
 import paho.mqtt.client as mqtt
-import requests
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -23,44 +23,126 @@ PORT = int(os.getenv("MQTT_PORT", "8883"))
 USERNAME = os.getenv("MQTT_USERNAME", "")
 PASSWORD = os.getenv("MQTT_PASSWORD", "")
 CLIENT_ID = f"edge_mock_{random.randint(1000, 9999)}"
-TOPIC = os.getenv("MQTT_TOPIC", "easy-shm/2")
+TOPIC_PREFIX = os.getenv("MQTT_TOPIC_PREFIX", "easy-shm")
 
-LATITUDE = float(os.getenv("WEATHER_LATITUDE", "38.8951"))
-LONGITUDE = float(os.getenv("WEATHER_LONGITUDE", "-77.0364"))
-WEATHER_URL = (
-    f"https://api.open-meteo.com/v1/forecast"
-    f"?latitude={LATITUDE}&longitude={LONGITUDE}"
-    f"&current=temperature_2m,relative_humidity_2m"
-)
+CONFIG_PATH = Path(__file__).resolve().parent / "sensor_config.json"
 
-DRIFT = float(os.getenv("DRIFT", "1.0"))
-FETCH_INTERVAL = int(os.getenv("WEATHER_FETCH_INTERVAL", "60"))
+# ---------------------------------------------------------------------------
+# 数据生成器
+# ---------------------------------------------------------------------------
 
-base_temp: float = 25.0
-base_humi: float = 60.0
-lock = threading.Lock()
+def clamp(val: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, val))
 
 
-def fetch_weather():
-    """从 Open-Meteo 获取 DC 当前温湿度，更新基准值。"""
-    global base_temp, base_humi
-    while True:
-        try:
-            resp = requests.get(WEATHER_URL, timeout=10)
-            data = resp.json().get("current", {})
-            with lock:
-                base_temp = data.get("temperature_2m", base_temp)
-                base_humi = data.get("relative_humidity_2m", base_humi)
-            # print(f"[weather] DC temp={base_temp}℃  humi={base_humi}%")
-        except Exception as e:
-            print(f"[weather] fetch failed: {e}")
-        time.sleep(FETCH_INTERVAL)
+def hour_of_day() -> float:
+    """当前时刻在一天中的小数小时 (0~24)。"""
+    now = datetime.now()
+    return now.hour + now.minute / 60 + now.second / 3600
+
+
+def diurnal_offset(amplitude: float) -> float:
+    """日周期正弦偏移，14 时最高、02 时最低。"""
+    h = hour_of_day()
+    return amplitude * math.sin(2 * math.pi * (h - 8) / 24)
+
+
+class SensorState:
+    """单个测点的运行状态，每次 tick 生成下一个值。"""
+
+    __slots__ = ("value_type", "profile", "current")
+
+    def __init__(self, value_type: str, profile: dict):
+        self.value_type = value_type
+        self.profile = profile
+        lo, hi = profile["min"], profile["max"]
+        mid = profile["baseline"]
+        self.current = mid + random.uniform(-profile["noise"] * 3, profile["noise"] * 3)
+        self.current = clamp(self.current, lo, hi)
+
+    def tick(self) -> float:
+        p = self.profile
+        lo, hi = p["min"], p["max"]
+        vt = self.value_type
+
+        if vt in ("结构表面温度", "环境温度"):
+            target = p["baseline"] + diurnal_offset(p["drift"])
+            self.current += (target - self.current) * 0.01 + random.gauss(0, p["noise"])
+
+        elif vt == "风速":
+            # 缓慢随机游走 + 偶发阵风
+            self.current += random.gauss(0, p["noise"])
+            if random.random() < 0.02:
+                self.current += random.uniform(2, 5)
+            self.current += (p["baseline"] - self.current) * 0.005
+
+        elif vt == "风向":
+            self.current += random.gauss(0, p["noise"])
+            if self.current < 0:
+                self.current += 360
+            elif self.current >= 360:
+                self.current -= 360
+            return round(self.current, 1)
+
+        elif vt == "车辆总重":
+            # 脉冲式：大部分时间基线附近，偶尔有车辆过桥
+            if random.random() < 0.05:
+                self.current = random.uniform(30, 180)
+            else:
+                self.current += (p["baseline"] - self.current) * 0.1 + random.gauss(0, p["noise"])
+
+        elif vt == "静态应变":
+            self.current += random.gauss(0, p["noise"])
+            self.current += (p["baseline"] - self.current) * 0.002
+
+        elif vt == "加速度":
+            # 振动类：以零为中心的白噪声
+            self.current = random.gauss(0, p["noise"])
+
+        elif vt == "竖向挠度":
+            self.current += random.gauss(0, p["noise"])
+            self.current += (p["baseline"] - self.current) * 0.003
+
+        elif vt == "裂缝宽度":
+            self.current += random.gauss(0, p["noise"])
+            self.current += (p["baseline"] - self.current) * 0.001
+
+        elif vt == "不均匀沉降":
+            self.current += random.gauss(0, p["noise"])
+            self.current += (p["baseline"] - self.current) * 0.002
+
+        else:
+            self.current += random.gauss(0, p["noise"])
+
+        self.current = clamp(self.current, lo, hi)
+        return round(self.current, 3)
+
+
+# ---------------------------------------------------------------------------
+# 主逻辑
+# ---------------------------------------------------------------------------
+
+def load_config() -> dict:
+    with open(CONFIG_PATH, encoding="utf-8") as f:
+        return json.load(f)
 
 
 def main():
-    # 先拉一次天气数据再开始发送
-    threading.Thread(target=fetch_weather, daemon=True).start()
-    time.sleep(2)
+    config = load_config()
+    profiles = config["sensor_profiles"]
+    structures = config["structures"]
+
+    # 为每个测点创建状态实例
+    states: dict[int, SensorState] = {}
+    for _sid, sinfo in structures.items():
+        for pt in sinfo["points"]:
+            pid = pt["point_id"]
+            vt = pt["value_type"]
+            states[pid] = SensorState(vt, profiles[vt])
+
+    total_points = len(states)
+    total_structures = len(structures)
+    print(f"Loaded {total_points} points across {total_structures} structures")
 
     client = mqtt.Client(client_id=CLIENT_ID, protocol=mqtt.MQTTv5)
     client.tls_set(cert_reqs=ssl.CERT_NONE)
@@ -70,21 +152,21 @@ def main():
     client.connect(BROKER, PORT)
     client.loop_start()
 
-    print(f"Connected to {BROKER}:{PORT}, publishing to {TOPIC}")
+    print(f"Connected to {BROKER}:{PORT}, topic prefix: {TOPIC_PREFIX}")
 
     try:
         while True:
-            with lock:
-                temp = base_temp
-                humi = base_humi
-
             now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-            payload = [
-                {"ts": now, "point_id": pid, "val": round(base + random.uniform(-DRIFT, DRIFT), 2)}
-                for pid, base in [(1, temp), (2, humi)]
-            ]
-            client.publish(TOPIC, json.dumps(payload), qos=1)
-            # print(f"  {payload}")
+
+            for sid, sinfo in structures.items():
+                payload = []
+                for pt in sinfo["points"]:
+                    pid = pt["point_id"]
+                    val = states[pid].tick()
+                    payload.append({"ts": now, "point_id": pid, "val": val})
+
+                topic = f"{TOPIC_PREFIX}/{sid}"
+                client.publish(topic, json.dumps(payload), qos=1)
 
             time.sleep(1)
     except KeyboardInterrupt:

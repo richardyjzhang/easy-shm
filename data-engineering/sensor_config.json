@@ -1,0 +1,1136 @@
+{
+  "sensor_profiles": {
+    "结构表面温度": {
+      "unit": "℃",
+      "baseline": 20,
+      "drift": 8,
+      "noise": 0.3,
+      "min": -10,
+      "max": 40
+    },
+    "环境温度": {
+      "unit": "℃",
+      "baseline": 18,
+      "drift": 8,
+      "noise": 0.3,
+      "min": -15,
+      "max": 35
+    },
+    "风速": {
+      "unit": "m/s",
+      "baseline": 5,
+      "drift": 3,
+      "noise": 0.5,
+      "min": 0,
+      "max": 15
+    },
+    "风向": {
+      "unit": "°",
+      "baseline": 180,
+      "drift": 30,
+      "noise": 5,
+      "min": 0,
+      "max": 360
+    },
+    "车辆总重": {
+      "unit": "kN",
+      "baseline": 80,
+      "drift": 40,
+      "noise": 5,
+      "min": 0,
+      "max": 200
+    },
+    "静态应变": {
+      "unit": "με",
+      "baseline": 0,
+      "drift": 50,
+      "noise": 5,
+      "min": -500,
+      "max": 500
+    },
+    "加速度": {
+      "unit": "m/s²",
+      "baseline": 0,
+      "drift": 0.3,
+      "noise": 0.2,
+      "min": -2,
+      "max": 2
+    },
+    "竖向挠度": {
+      "unit": "mm",
+      "baseline": 0,
+      "drift": 3,
+      "noise": 0.5,
+      "min": -20,
+      "max": 20
+    },
+    "裂缝宽度": {
+      "unit": "mm",
+      "baseline": 0.1,
+      "drift": 0.02,
+      "noise": 0.005,
+      "min": 0,
+      "max": 0.2
+    },
+    "不均匀沉降": {
+      "unit": "mm",
+      "baseline": 0,
+      "drift": 1,
+      "noise": 0.2,
+      "min": -10,
+      "max": 10
+    }
+  },
+  "structures": {
+    "3030": {
+      "name": "金门大桥",
+      "points": [
+        {
+          "point_id": 3,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 4,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 5,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 6,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 7,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 8,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 9,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 10,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 11,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 12,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 13,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 14,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 15,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 16,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 17,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 18,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 19,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 20,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 21,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 22,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 23,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 24,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 25,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 26,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 27,
+          "value_type": "竖向挠度"
+        }
+      ]
+    },
+    "3031": {
+      "name": "布鲁克林大桥",
+      "points": [
+        {
+          "point_id": 28,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 29,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 30,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 31,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 32,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 33,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 34,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 35,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 36,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 37,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 38,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 39,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 40,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 41,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 42,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 48,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 49,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 50,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 51,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 52,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 43,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 44,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 45,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 46,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 47,
+          "value_type": "裂缝宽度"
+        }
+      ]
+    },
+    "3032": {
+      "name": "胡佛水坝",
+      "points": [
+        {
+          "point_id": 53,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 54,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 55,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 56,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 57,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 58,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 59,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 60,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 61,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 62,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 63,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 64,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 65,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 66,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 67,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 68,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 69,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 70,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 71,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 72,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 73,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 74,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 75,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 76,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 77,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3033": {
+      "name": "帝国大厦",
+      "points": [
+        {
+          "point_id": 78,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 79,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 80,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 81,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 82,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 83,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 84,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 85,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 86,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 87,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 88,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 89,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 90,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 91,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 92,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 93,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 94,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 95,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 96,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 97,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 98,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 99,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 100,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 101,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 102,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3034": {
+      "name": "五角大楼",
+      "points": [
+        {
+          "point_id": 103,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 104,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 105,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 106,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 107,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 108,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 109,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 110,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 111,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 112,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 113,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 114,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 115,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 116,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 117,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 118,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 119,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 120,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 121,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 122,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 123,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 124,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 125,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 126,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 127,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3035": {
+      "name": "切萨皮克湾大桥隧道",
+      "points": [
+        {
+          "point_id": 128,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 129,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 130,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 131,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 132,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 133,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 134,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 135,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 136,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 137,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 138,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 139,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 140,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 141,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 142,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 143,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 144,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 145,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 146,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 147,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 148,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 149,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 150,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 151,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 152,
+          "value_type": "竖向挠度"
+        }
+      ]
+    },
+    "3036": {
+      "name": "威利斯大厦",
+      "points": [
+        {
+          "point_id": 153,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 154,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 155,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 156,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 157,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 158,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 159,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 160,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 161,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 162,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 163,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 164,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 165,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 166,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 167,
+          "value_type": "风向"
+        },
+        {
+          "point_id": 168,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 169,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 170,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 171,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 172,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 173,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 174,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 175,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 176,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 177,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3037": {
+      "name": "诺福克海军基地码头",
+      "points": [
+        {
+          "point_id": 178,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 179,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 180,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 181,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 182,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 183,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 184,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 185,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 186,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 187,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 198,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 199,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 200,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 201,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 202,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 188,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 189,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 190,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 191,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 192,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 193,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 194,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 195,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 196,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 197,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3038": {
+      "name": "自由女神像基座",
+      "points": [
+        {
+          "point_id": 203,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 204,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 205,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 206,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 207,
+          "value_type": "环境温度"
+        },
+        {
+          "point_id": 208,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 209,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 210,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 211,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 212,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 213,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 214,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 215,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 216,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 217,
+          "value_type": "加速度"
+        },
+        {
+          "point_id": 218,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 219,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 220,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 221,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 222,
+          "value_type": "裂缝宽度"
+        },
+        {
+          "point_id": 223,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 224,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 225,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 226,
+          "value_type": "不均匀沉降"
+        },
+        {
+          "point_id": 227,
+          "value_type": "不均匀沉降"
+        }
+      ]
+    },
+    "3039": {
+      "name": "科罗拉多河大桥",
+      "points": [
+        {
+          "point_id": 228,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 229,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 230,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 231,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 232,
+          "value_type": "结构表面温度"
+        },
+        {
+          "point_id": 233,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 234,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 235,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 236,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 237,
+          "value_type": "风速"
+        },
+        {
+          "point_id": 238,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 239,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 240,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 241,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 242,
+          "value_type": "车辆总重"
+        },
+        {
+          "point_id": 243,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 244,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 245,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 246,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 247,
+          "value_type": "静态应变"
+        },
+        {
+          "point_id": 248,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 249,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 250,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 251,
+          "value_type": "竖向挠度"
+        },
+        {
+          "point_id": 252,
+          "value_type": "竖向挠度"
+        }
+      ]
+    }
+  }
+}
