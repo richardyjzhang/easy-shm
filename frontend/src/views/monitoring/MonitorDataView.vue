@@ -41,6 +41,9 @@ async function loadStructures() {
       label: s.name,
       value: s.id!,
     }))
+    if (!selectedStructureId.value && structureOptions.value.length > 0) {
+      selectedStructureId.value = structureOptions.value[0].value as number
+    }
   } catch (e: unknown) {
     message.error(e instanceof Error ? e.message : '加载结构物列表失败')
   } finally {
@@ -95,15 +98,23 @@ async function loadStructureConfigs(structureId: number) {
   }
 }
 
-watch(selectedStructureId, (val) => {
+watch(selectedStructureId, async (val) => {
   selectedMonitorIndexId.value = null
   selectedValueTypeId.value = null
   configuredValueTypeIds.value = new Set()
-  if (val) loadStructureConfigs(val)
+  if (val) {
+    await loadStructureConfigs(val)
+    if (monitorIndexOptions.value.length > 0) {
+      selectedMonitorIndexId.value = monitorIndexOptions.value[0].value as number
+    }
+  }
 })
 
 watch(selectedMonitorIndexId, () => {
   selectedValueTypeId.value = null
+  if (selectedMonitorIndexId.value && valueTypeOptions.value.length > 0) {
+    selectedValueTypeId.value = valueTypeOptions.value[0].value as number
+  }
 })
 
 // ===================== 时间范围 & 粒度 =====================
@@ -366,9 +377,17 @@ const chartOption = computed(() => {
 })
 
 // ===================== 初始化 =====================
-onMounted(() => {
-  loadStructures()
-  loadAllMonitorData()
+onMounted(async () => {
+  await Promise.all([loadStructures(), loadAllMonitorData()])
+  // loadStructures 已自动选中第一个结构物并触发 watcher，
+  // 但 watcher 中 loadStructureConfigs 的 await 可能在 allIndexesWithVT 加载完成前就执行了，
+  // 导致 monitorIndexOptions 为空。此处补偿：确保所有数据就绪后级联选中。
+  if (selectedStructureId.value && configuredValueTypeIds.value.size === 0) {
+    await loadStructureConfigs(selectedStructureId.value)
+  }
+  if (monitorIndexOptions.value.length > 0 && !selectedMonitorIndexId.value) {
+    selectedMonitorIndexId.value = monitorIndexOptions.value[0].value as number
+  }
 })
 </script>
 
